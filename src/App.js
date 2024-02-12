@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import TodoInput from './components/TodoInput';
+import { useSelector } from 'react-redux';
+import TodoItem from './components/TodoItem';
+import Filter from './components/Filter';
 
 function App() {
+  const todoList = useSelector((state) => state.toDoList);
+  const filteredList = useSelector((state) => state.filteredList);
+  const n = useSelector((state) => state.toDoList);
+  console.log('todoList', n);
+  console.log('filteredList', filteredList);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <h2>Todo List</h2>
+        <TodoInput />
+      </div>
+      <Filter />
+      <div>
+        <h2>todo List History</h2>
+        <section>
+          {todoList.map((item) => (
+            <TodoItem key={item.id} item={item} />
+          ))}
+        </section>
+      </div>
     </div>
   );
 }
